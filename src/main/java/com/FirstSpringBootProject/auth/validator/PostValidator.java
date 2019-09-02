@@ -13,8 +13,8 @@ import org.springframework.validation.Validator;
 
 @Component
 public class PostValidator  implements Validator {
-    @Autowired
-    private PostService postService;
+
+
 
 
     @Override
@@ -30,6 +30,11 @@ public class PostValidator  implements Validator {
         if (post.getPost().length() < 40 || post.getPost().length() > 600) {
             errors.rejectValue("post", "Size.postForm.post");
         }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "baslik", "NotEmpty");
+        if (post.getBaslik().length() < 3 || post.getBaslik().length() > 60) {
+            errors.rejectValue("baslik", "Size.postForm.baslik");
+        }
+
 
 
 

@@ -13,9 +13,13 @@
 
     <title>Title</title>
 </head>
+
+
 <body>
+
+
 <div class="border">
-    <form method="POST" modelAttribute="postForm" action="/postAdd">
+    <form method="POST" modelAttribute="postForm" action="${contextPath}/postAdd">
         <div>
             <label for="title">Blog Basligi</label>
             <input class="form-control" type="text" id="title" name="post_title">
@@ -30,6 +34,7 @@
         </div>
     </form>
 </div>
+
 <!-- <div class="md-form" >
     <i class="fas fa-pencil-alt prefix"></i>
     <textarea id="form10"  rows="10" cols="90"></textarea>

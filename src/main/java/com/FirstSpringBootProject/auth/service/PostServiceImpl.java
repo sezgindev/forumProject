@@ -4,9 +4,7 @@ import com.FirstSpringBootProject.auth.model.Post;
 import com.FirstSpringBootProject.auth.repository.PostRepository;
 import com.FirstSpringBootProject.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,6 +15,7 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private PostRepository postRepository;
 
@@ -40,8 +39,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public void save(Post post) {
         post.setPost(post.getPost());
+        post.setBaslik(post.getBaslik());
         post.setUsers(new HashSet<>(userRepository.findAll()));
         postRepository.save(post);
     }
 
+    @Override
+    public void deleteByPost(String post){
+        deleteByPost(post);
+    }
 }

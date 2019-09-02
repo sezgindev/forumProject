@@ -66,10 +66,44 @@ public class UserController {
         return "welcome";
     }
 
+
+
     @RequestMapping("/users")
     public ModelAndView getUsersPage() {
         return new ModelAndView("users", "users", userService.getUsername());
     }
+
+
+    @RequestMapping(value="/deleteByUsername/{username}", method=RequestMethod.GET)
+    public ModelAndView  deleteByUsername(@PathVariable String username) {
+        ModelAndView model = new ModelAndView("/users");
+        userService.deleteByUsername(username);
+        return model;
+
+    }
+
+    @GetMapping("/UserEdit")
+    public String UserEdit(Model model) {
+        model.addAttribute("editForm");
+        return "UserEdit";
+    }
+
+    @PostMapping("/UserEdit")
+    public String UserEdit(@ModelAttribute("editForm") User editForm, BindingResult bindingResult) {
+
+        userValidator.validate(editForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "userEdit";
+        }
+
+        userService.save(editForm);
+
+        securityService.autoLogin(editForm.getUsername(), editForm.getPasswordConfirm());
+
+        return "redirect:/users";
+    }
+
 
 
 

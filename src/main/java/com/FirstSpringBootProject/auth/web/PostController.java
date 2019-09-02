@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -24,21 +22,37 @@ public class PostController {
     private PostValidator postValidator;
 
 
-    @RequestMapping(value = "/postAdd",method = RequestMethod.GET)
+    @GetMapping("/postAdd")
         public String postAdd(Model model){
-        model.addAttribute("postForm", new Post());
+       model.addAttribute("postForm", new Post());
         return "postAdd";
     }
 
-    @RequestMapping(value = "/postAdd",method = RequestMethod.POST)
+    @PostMapping("/postAdd")
     public String postAdd(@ModelAttribute("postForm") Post postForm, BindingResult bindingResult) {
         postValidator.validate(postForm, bindingResult);
 
-        if (bindingResult.hasErrors()) {
+      if (bindingResult.hasErrors()) {
             return "postAdd";
         }
 
         postService.save(postForm);
         return "redirect:/welcome";
     }
+
+
+    @RequestMapping("/posts")
+    public ModelAndView getPostsPage() {
+        return new ModelAndView("posts", "posts", postService.getPosts());
+    }
+
+
+    @RequestMapping(value="/deleteByPost/{post}", method=RequestMethod.GET)
+    public ModelAndView  deleteByUsername(@PathVariable String post) {
+        ModelAndView model = new ModelAndView("/posts");
+        postService.deleteByPost(post);
+        return model;
+
+    }
+
 }

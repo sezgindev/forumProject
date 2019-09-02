@@ -1,16 +1,17 @@
 package com.FirstSpringBootProject.auth.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
+@Table(name = "post")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String baslik;
 
     private String post;
 
@@ -31,8 +32,16 @@ public class Post {
         return post;
     }
 
+    public String getBaslik() {
+        return baslik;
+    }
+
     public void setPost(String post) {
         this.post = post;
+    }
+
+    public void setBaslik(String baslik) {
+        this.baslik = baslik;
     }
 
 
@@ -44,5 +53,4 @@ public class Post {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
-
 }
