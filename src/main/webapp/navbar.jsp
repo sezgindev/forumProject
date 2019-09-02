@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: SEZGIN
-  Date: 21.08.2019
-  Time: 16:23
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,7 +14,6 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
     <nav>
-
         <div class="navbar">
             <a href="welcome.jsp" >AnaSayfa</a>
             <a href="postAdd.jsp">Blog Yaz</a>
@@ -30,13 +22,9 @@
             <a href=""  style="float:right;" >Hosgeldin ${pageContext.request.userPrincipal.name}</a>
             <a href="#about"  style="float:right;"  onclick="document.forms['logoutForm'].submit()">Logout</a>
         </div>
-
     </nav>
-
 </c:if>
-
 </body>
-
 <style>
     .navbar {
         overflow: hidden;
@@ -45,8 +33,6 @@
         top: 0; /* Position the navbar at the top of the page */
         width: 100%; /* Full width */
     }
-
-
     .navbar a {
         float:left;
         display: block;
